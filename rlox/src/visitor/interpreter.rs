@@ -73,10 +73,10 @@ impl Function {
                         lexeme: "this".into(),
                         literal: None,
                         line: 0
-                    }).unwrap();
+                    });
                 match interp.execute_block(body, env) {
-                    Ok(_) => Ok(if self.is_init {this} else {LoxValue::Nil}),
-                    Err(LoxError::Return{value}) => Ok(if self.is_init {this} else {value}),
+                    Ok(_) => Ok(if self.is_init {this.unwrap()} else {LoxValue::Nil}),
+                    Err(LoxError::Return{value}) => Ok(if self.is_init {this.unwrap()} else {value}),
                     Err(e) => Err(e)
                 }
             }
